@@ -9,6 +9,7 @@ import { SignalTab } from './components/tabs/SignalTab';
 import { CellsTab } from './components/tabs/CellsTab';
 import { SpeedTab } from './components/tabs/SpeedTab';
 import { SettingsTab } from './components/tabs/SettingsTab';
+import { AndroidApkModal } from './components/AndroidApkModal';
 import {
   Home,
   Radio,
@@ -20,12 +21,19 @@ import {
 
 export const App: React.FC = () => {
   const [language, setLanguage] = useState<AppLanguage>('ar');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('tw_logged_in') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [activeTab, setActiveTab] = useState<AppTab>('home');
   const [snapshot, setSnapshot] = useState<CpeSnapshot | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [autoRefreshInterval, setAutoRefreshInterval] = useState<number>(5);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isApkModalOpen, setIsApkModalOpen] = useState(false);
 
   const t = translations[language];
   const isArabic = language === 'ar';
@@ -69,6 +77,9 @@ export const App: React.FC = () => {
 
   // Handle successful login
   const handleLoginSuccess = () => {
+    try {
+      localStorage.setItem('tw_logged_in', 'true');
+    } catch {}
     setIsLoggedIn(true);
     refreshSnapshot(true);
     showToast(t.loginSuccess);
@@ -76,6 +87,9 @@ export const App: React.FC = () => {
 
   // Handle logout
   const handleLogout = () => {
+    try {
+      localStorage.removeItem('tw_logged_in');
+    } catch {}
     setIsLoggedIn(false);
     setSnapshot(null);
     showToast(t.logout);
@@ -123,6 +137,7 @@ export const App: React.FC = () => {
         isRefreshing={isRefreshing}
         isDemoMode={creds.isDemoMode}
         onLogout={handleLogout}
+        onOpenApkModal={() => setIsApkModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -212,6 +227,13 @@ export const App: React.FC = () => {
           })}
         </div>
       </nav>
+
+      {/* Android APK Modal */}
+      <AndroidApkModal
+        isOpen={isApkModalOpen}
+        onClose={() => setIsApkModalOpen(false)}
+        isArabic={isArabic}
+      />
     </div>
   );
 };

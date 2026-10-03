@@ -1,0 +1,12 @@
+{
+	"appId": "com.thirdwave.cpemonitor",
+	"appName": "Third Wave CPE Monitor",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "http",
+		"cleartext": true
+	},
+	"android": {
+		"allowMixedContent": true
+	}
+}

@@ -16,6 +16,8 @@ import {
   Eye,
   EyeOff,
   Zap,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 
 interface LoginScreenProps {
@@ -99,6 +101,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
     }
   };
 
+  const handleInstantDirectAccess = () => {
+    cpeService.setCredentials({ isDemoMode: true });
+    onLoginSuccess();
+  };
+
   return (
     <div
       dir={isArabic ? 'rtl' : 'ltr'}
@@ -135,6 +142,31 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
           <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed pt-1">
             {t.loginSubtitle}
           </p>
+        </div>
+
+        {/* Quick Instant Entry Banner */}
+        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-cyan-950/60 border border-cyan-800/60 flex items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-white block">
+                {isArabic ? 'معاينة لوحة التحكم مباشرة' : 'Preview Live Dashboard'}
+              </span>
+              <span className="text-[11px] text-slate-400">
+                {isArabic ? 'بيانات Mobily H165-383 المعتمدة' : 'Sample Mobily H165-383 telemetry'}
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleInstantDirectAccess}
+            className="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs transition-transform active:scale-95 shadow-md flex items-center gap-1"
+          >
+            <span>{isArabic ? 'دخول مباشر' : 'Open'}</span>
+            <Zap className="w-3.5 h-3.5 fill-current" />
+          </button>
         </div>
 
         {/* Login & Verification Card */}

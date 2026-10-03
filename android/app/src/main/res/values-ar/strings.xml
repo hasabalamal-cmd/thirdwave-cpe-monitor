@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">الموجة الثالثة</string>
+    <string name="title_activity_main">الموجة الثالثة</string>
+    <string name="package_name">com.thirdwave.cpemonitor</string>
+    <string name="custom_url_scheme">com.thirdwave.cpemonitor</string>
+</resources>

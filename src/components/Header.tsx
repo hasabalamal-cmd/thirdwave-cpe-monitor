@@ -9,6 +9,7 @@ import {
   Wifi,
   Router,
   LogOut,
+  Smartphone,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -22,6 +23,7 @@ interface HeaderProps {
   isRefreshing: boolean;
   isDemoMode: boolean;
   onLogout: () => void;
+  onOpenApkModal: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -35,6 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
   isRefreshing,
   isDemoMode,
   onLogout,
+  onOpenApkModal,
 }) => {
   const isArabic = language === 'ar';
 
@@ -69,6 +72,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action buttons */}
           <div className="flex items-center gap-2">
+            {/* Android APK Modal Button */}
+            <button
+              type="button"
+              onClick={onOpenApkModal}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-800/90 transition-all shadow-xs"
+              title={isArabic ? 'تطبيق Android APK' : 'Android APK'}
+            >
+              <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isArabic ? 'تطبيق APK' : 'APK'}</span>
+            </button>
+
             {/* Language Switcher */}
             <button
               type="button"
