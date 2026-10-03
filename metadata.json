@@ -1,0 +1,8 @@
+{
+  "name": "الموجة الثالثة - Third Wave CPE Monitor",
+  "description": "تطبيق احترافي لمراقبة وإدارة أجهزة راوتر الجيل الرابع والخامس 4G/5G Huawei CPE عبر الشبكة المحلية.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
